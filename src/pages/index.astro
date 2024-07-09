@@ -1,0 +1,65 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import { getCollection } from "astro:content";
+import Benefit from "@components/Benefit.astro";
+import Blog from "@components/Blog.astro";
+
+const posts = (await getCollection("blog")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout>
+    <section class="text-center">
+        <div class="grid place-items-center">
+            <Header title="Aprende programación na *tua lingua*" />
+            <p class="mt-3 max-w-prose leading-relaxed">
+                Atopa artigos completos sobre <strong>programación en galego</strong>. Aprende a
+                programar en JavaScript, e o resto de tecnoloxías web, de forma
+                sinxela e amena.
+            </p>
+        </div>
+    </section>
+    <section class="text-center mt-20">
+        <div>
+            <Header title="Faino en Galego" iconName="galicia-flag" />
+            <ul class="grid grid-cols-1 gap-4 place-items-center">
+                <Benefit
+                    iconName="html"
+                    title="Aprende HTML"
+                    description="Construe as estruturas básicas dunha páxina web."
+                />
+                <Benefit
+                    iconName="css"
+                    title="Aprende CSS"
+                    description="Dalle estilo ás túas páxinas web."
+                />
+                <Benefit
+                    iconName="js"
+                    title="Aprende JavaScript"
+                    description="Dalle funcionalidades interactivas ás túas páxinas web."
+                />
+                <Benefit
+                    iconName="book"
+                    title="Descobre librerías e frameworks"
+                    description="Aprende sobre algunhas das ferramentas máis populares do mundo do desenvolvemento web."
+                />
+            </ul>
+        </div>
+    </section>
+    <section>
+        <h2
+            class="mt-12 text-2xl font-semibold dark:text-zinc-100 text-zinc-900"
+        >
+            Publicacións recentes
+        </h2>
+        <ul class="mt-6 grid grid-cols-1 gap-6">
+            {posts.slice(0, 3).map((post) => <Blog {...post} />)}
+        </ul>
+        <a
+            class="inline-block mt-7 dark:hover:text-zinc-50 hover:text-zinc-400 transition-colors"
+            href="/blog/">Ver todas as publicacións &rarr;</a
+        >
+    </section>
+</Layout>

@@ -1,0 +1,17 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+    title: string;
+    iconName?: string;
+}
+
+const { title, iconName } = Astro.props;
+---
+
+{iconName && <Icon name={iconName} class="w-16 h-16 mx-auto" />}
+<h1
+    class="mb-6 dark:text-zinc-100 text-zinc-950 text-3xl font-bold tracking-tight sm:text-4xl text-center"
+>
+    {title}
+</h1>
